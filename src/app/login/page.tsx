@@ -1,7 +1,7 @@
-import Navbar from '@/src/Components/Navbar'
 import React from 'react'
 import LoginForm from './LoginForm'
-import Footer from '@/src/Components/Footer'
+import Navbar from '@components/Navbar'
+import Footer from '@components/Footer'
 
 const Page = () => {
   return (

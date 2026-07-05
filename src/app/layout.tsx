@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Hanken_Grotesk } from "next/font/google";
-import {AuthProvider} from "./context/AuthContext";
+import {AuthProvider} from "@context/AuthContext";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -28,7 +28,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  console.log("https://prod.liveshare.vsengsaas.visualstudio.com/join?E93184A385155017D3FC49B60EE54E70FD73")
   return (
     <html
       lang="en"

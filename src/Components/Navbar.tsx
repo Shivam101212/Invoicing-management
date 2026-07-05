@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@context";
+import { useAuth } from "@context/AuthContext";
 
 const NAV_LINKS = [
   { label: "Product", href: "/product" },
