@@ -1,0 +1,36 @@
+
+.page {
+  padding: 2em 2em;
+  display: flex;
+  width: 100vw;
+  justify-content: center;
+  gap:2em
+}
+
+.page button:disabled{
+  cursor: not-allowed !important;
+  background-color: #999696 !important;
+}
+
+.invoicePreview {
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1); 
+  gap: 1em;
+  height: 90vh;
+  overflow-y: scroll;
+  position: relative;
+  width: 50vw;
+ 
+
+}
+
+.btn{
+  position: -webkit-sticky;
+  bottom: 1em;
+  position: sticky;
+  width: fit-content;
+  margin: 0 auto 0 auto;
+}
+
+
