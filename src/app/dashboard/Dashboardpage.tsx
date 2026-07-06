@@ -1,13 +1,12 @@
 "use client";
 
 import { useId, useRef, useState } from "react";
-import Bill from "@components/bill";
 import styles from "./page.module.css";
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
 import UserInput from "@components/userInput";
 import { customerInfoType } from "@/Apptypes/InputsType";
 import { productInfoType } from "@/Apptypes/productType";
+import Bill from "@components/MyDocument";
+import { PDFViewer } from "@/lib/react-pdf";
 
 type orderItemType = {
   id: number;
@@ -86,16 +85,15 @@ export default function Home() {
     );
   };
 
-
   const handleAddItem = () => {
-    const defaultValue= {
+    const defaultValue = {
       id: Date.now(),
       description: "",
       price: 0,
       discount: 0,
       quantity: 1,
     };
-    const hasEmptyItem = products.some((item) => item.description === "" );
+    const hasEmptyItem = products.some((item) => item.description === "");
 
     if (hasEmptyItem) {
       alert("Please fill in all product details before adding a new product.");
@@ -122,45 +120,8 @@ export default function Home() {
           quantity: 1,
         },
       ]);
-    }else{
+    } else {
       setProducts((prev) => prev.filter((product) => product.id !== id));
-    }
-  };
-  const downloadPDF = async () => {
-    const element = invoiceRef.current;
-    if (!element) return;
-
-    setIsDownloading(true);
-
-    try {
-      // 1. Take a high-resolution snapshot of the specific div
-      const canvas = await html2canvas(element, {
-        scale: 2, // High resolution for crisp text
-        useCORS: true, // Ensures Google Fonts load correctly in the snapshot
-        backgroundColor: "#ffffff", // Forces a white background
-      });
-
-      const imgData = canvas.toDataURL("image/png");
-
-      // 2. Initialize an A4 PDF
-      const pdf = new jsPDF({
-        orientation: "portrait",
-        unit: "mm",
-        format: "a4",
-      });
-
-      // 3. Calculate math to perfectly fit the snapshot onto the A4 page
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-
-      // 4. Paste the snapshot onto the PDF and trigger the browser download
-      pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
-      pdf.save("AlgoBright_Invoice.pdf");
-    } catch (error) {
-      console.error("Error generating PDF:", error);
-      alert("Failed to download PDF.");
-    } finally {
-      setIsDownloading(false);
     }
   };
 
@@ -180,42 +141,66 @@ export default function Home() {
           display: "flex",
           justifyContent: "center",
         }}
-      >
-        
-      </div>
+      ></div>
 
       {/* Invoice Preview Wrapper with the Ref attached */}
-      <div className={styles.invoicePreview}>
-       
+      {/* <div className={styles.invoicePreview}> */}
+      <PDFViewer width="50%" height="600">
         <Bill
           customerInfo={customerInfo}
           products={products}
           status="Paid"
           compRef={invoiceRef}
         />
-         <button
-         className={styles.btn}
-          onClick={downloadPDF}
-          disabled={
-            isDownloading ||
-            !customerInfo.name ||
-            !customerInfo.address ||
-            !customerInfo.phone ||
-            !customerInfo.email
-          }
-          style={{
-            padding: "10px 24px",
-            backgroundColor: isDownloading ? "#666" : "#0072ce",
-            color: "white",
-            border: "none",
-            borderRadius: "4px",
-            cursor: isDownloading ? "not-allowed" : "pointer",
-            fontWeight: "bold",
-          }}
-        >
-          {isDownloading ? "Generating PDF..." : "Download Invoice PDF"}
-        </button>
-      </div>
+      </PDFViewer>
+      <button
+        className={styles.btn}
+        // onClick={downloadPDF}
+        disabled={
+          isDownloading ||
+          !customerInfo.name ||
+          !customerInfo.address ||
+          !customerInfo.phone ||
+          !customerInfo.email
+        }
+        style={{
+          padding: "10px 24px",
+          backgroundColor: isDownloading ? "#666" : "#0072ce",
+          color: "white",
+          border: "none",
+          borderRadius: "4px",
+          cursor: isDownloading ? "not-allowed" : "pointer",
+          fontWeight: "bold",
+        }}
+      >
+        {isDownloading ? "Generating PDF..." : "Download Invoice PDF"}
+      </button>
     </div>
   );
 }
+
+// export default function InvoicePage() {
+//   const items = [
+//     { name: 'Item A', price: 100 },
+//     { name: 'Item B', price: 250 },
+//   ];
+
+//   return (
+//     <div>
+//       {/* Option 1: Preview the PDF right on the page */}
+//       <PDFViewer width="50%" height="600">
+//         <MyDocument customerName="Rahul" items={items} />
+//       </PDFViewer>
+
+//       {/* Option 2: Give the user a download button */}
+//       <PDFDownloadLink
+//         document={<MyDocument customerName="Rahul" items={items} />}
+//         fileName="invoice.pdf"
+//       >
+//         {({ loading }) =>
+//           loading ? 'Preparing document...' : 'Download PDF'
+//         }
+//       </PDFDownloadLink>
+//     </div>
+//   );
+// }
