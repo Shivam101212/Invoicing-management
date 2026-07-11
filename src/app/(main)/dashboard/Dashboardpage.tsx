@@ -7,6 +7,7 @@ import { customerInfoType } from "@/Apptypes/InputsType";
 import { productInfoType } from "@/Apptypes/productType";
 import Bill from "@components/MyDocument";
 import { PDFViewer } from "@/lib/react-pdf";
+import { PDFDownloadLink } from "@react-pdf/renderer";
 
 type orderItemType = {
   id: number;
@@ -137,23 +138,35 @@ export default function Home() {
       />
       <div
         style={{
-          marginBottom: "20px",
-          display: "flex",
-          justifyContent: "center",
+          width: "100%",
+          backgroundColor: "red",
         }}
-      ></div>
+      >
+        {/* Invoice Preview Wrapper with the Ref attached */}
+        {/* <div className={styles.invoicePreview}> */}
+        <PDFViewer width="100%" height="100%">
+          <Bill
+            customerInfo={customerInfo}
+            products={products}
+            status="Paid"
+            compRef={invoiceRef}
+          />
+        </PDFViewer>
+        <PDFDownloadLink
+        document={<Bill customerInfo={customerInfo}
+            products={products}
+            status="Paid"
+            compRef={invoiceRef}
+           />}
+         fileName="invoice.pdf"
+       >
+         {({ loading }) =>
+           loading ? 'Preparing document...' : 'Download PDF'
+        }
+       </PDFDownloadLink>
+      </div>
 
-      {/* Invoice Preview Wrapper with the Ref attached */}
-      {/* <div className={styles.invoicePreview}> */}
-      <PDFViewer width="50%" height="600">
-        <Bill
-          customerInfo={customerInfo}
-          products={products}
-          status="Paid"
-          compRef={invoiceRef}
-        />
-      </PDFViewer>
-      <button
+      {/* <button
         className={styles.btn}
         // onClick={downloadPDF}
         disabled={
@@ -174,7 +187,7 @@ export default function Home() {
         }}
       >
         {isDownloading ? "Generating PDF..." : "Download Invoice PDF"}
-      </button>
+      </button> */}
     </div>
   );
 }

@@ -1,3 +1,4 @@
+"use client";
 import { StyleSheet, Font } from "@react-pdf/renderer";
 
 // Register real font files — react-pdf can't use CSS var() or system fonts
@@ -27,29 +28,33 @@ export const styles = StyleSheet.create({
   compInfo: {
     flexDirection: "row",
     width: "100%",
-    padding: 24, // 2em
+     // 2em
   },
 
   // left/right column widths replace grid-template-columns: 323fr 206fr
   leftItems: {
     flexDirection: "column",
-    width: "61.06%",
+    width: "59.06%",padding: 24
   },
   rightItems: {
     flexDirection: "column",
-    width: "38.94%",
+    width: "41.94%",
+    padding: 28
   },
 
+  suppa: {
+    flexDirection: "row",
+  },
   companyName: {
+    position: "relative",
     fontFamily: "Smooch",
-    fontSize: 30, // 2.5em
-    fontWeight: 500,
+    fontSize: 30, 
+    fontWeight: "bold",
     color: "#0076ce",
   },
   companyNameSup: {
-    fontSize: 3, // 0.25em of 30 → superscript-ish, adjust as needed
-    color: "#000000",
-    fontFamily: "Inter",
+    fontSize: 6, 
+    height: 10,
   },
 
   compAddress: {
@@ -68,6 +73,7 @@ export const styles = StyleSheet.create({
     gap: 9, // 0.75em
     width: "70%",
     textAlign: "justify",
+    fontSize: 12,
   },
   billToLabel: {
     fontWeight: 700,
@@ -76,12 +82,13 @@ export const styles = StyleSheet.create({
   invoice: {
     width: "100%",
     textAlign: "center",
-    fontSize: 24, // 2em
+    fontSize: 18, // 2em
     textTransform: "uppercase",
   },
 
   invoiceDetails: {
-    marginTop: 21, // 1.75em
+    marginTop: 30, // 1.75em
+    
   },
 
   eachInfo: {
@@ -89,10 +96,12 @@ export const styles = StyleSheet.create({
   },
   eachInfoLabel: {
     width: "57.14%", // 2fr of 2fr/1.5fr
+    fontSize: 12,
     fontWeight: 700,
   },
   eachInfoValue: {
     width: "42.86%", // 1.5fr of 2fr/1.5fr
+    fontSize: 12,
   },
 
   amountDetails: {
@@ -114,12 +123,13 @@ export const styles = StyleSheet.create({
     flexDirection: "column",
     marginTop: 12, // 1em
     width: "100%",
+    fontSize: 12,
   },
 
   itemHeader: {
     flexDirection: "row",
     paddingVertical: 6,
-    paddingHorizontal: 18,
+    paddingHorizontal: 22,
     width: "100%",
     backgroundColor: "#d9d9d9",
     fontWeight: 700,
