@@ -1,3 +1,4 @@
+"use client";
 import { Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
 import { styles } from "./styles";
 import { customerInfoType } from "@/Apptypes/InputsType";
@@ -21,7 +22,7 @@ const Bill = (props: BillProps) => {
   }, 0);
 
   return (
-    <Document  >
+    <Document title="Invoice" author="AlgoBright Tech Private Limited" subject="Invoice Document" keywords="Invoice, PDF, React-PDF">
       <Page size="A4" style={styles.page} id="invoice">
         <View style={styles.bill}>
           <View style={styles.compInfo}>

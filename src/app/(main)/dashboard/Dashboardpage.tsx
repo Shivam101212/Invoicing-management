@@ -7,8 +7,15 @@ import { customerInfoType } from "@/Apptypes/InputsType";
 import { productInfoType } from "@/Apptypes/productType";
 import Bill from "@components/MyDocument";
 import { PDFViewer } from "@/lib/react-pdf";
-import { PDFDownloadLink } from "@react-pdf/renderer";
+import dynamic from "next/dynamic";
 
+const PDFDownloadLink = dynamic(
+  () => import("@react-pdf/renderer").then((mod) => mod. PDFDownloadLink),
+  {
+    ssr: false,
+    loading: () => <p>Loading...</p>,
+  },
+);
 type orderItemType = {
   id: number;
   description: string;
@@ -139,7 +146,11 @@ export default function Home() {
       <div
         style={{
           width: "100%",
-          backgroundColor: "red",
+          // backgroundColor: "red",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
         {/* Invoice Preview Wrapper with the Ref attached */}
@@ -153,17 +164,21 @@ export default function Home() {
           />
         </PDFViewer>
         <PDFDownloadLink
-        document={<Bill customerInfo={customerInfo}
-            products={products}
-            status="Paid"
-            compRef={invoiceRef}
-           />}
-         fileName="invoice.pdf"
-       >
-         {({ loading }) =>
-           loading ? 'Preparing document...' : 'Download PDF'
-        }
-       </PDFDownloadLink>
+          document={
+            <Bill
+              customerInfo={customerInfo}
+              products={products}
+              status="Paid"
+              compRef={invoiceRef}
+            />
+          }
+          fileName="invoice.pdf"
+          className="w-170px  -mt-11 rounded-lg bg-blue-900 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-blue-800"
+        >
+          {({ loading }) =>
+            loading ? "Preparing document..." : "Download PDF"
+          }
+        </PDFDownloadLink>
       </div>
 
       {/* <button

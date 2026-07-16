@@ -39,7 +39,11 @@ export const styles = StyleSheet.create({
   rightItems: {
     flexDirection: "column",
     width: "41.94%",
-    padding: 28
+    // padding: 28,
+    // paddingHorizontal: 14,
+    paddingVertical: 28, 
+    paddingRight: 24, 
+paddingLeft: 0,
   },
 
   suppa: {
