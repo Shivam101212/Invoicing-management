@@ -33,6 +33,7 @@ export default function Home() {
     phone: "9090909090",
     email: "main@example.cm",
   });
+const [selectedValue, setSelectedValue]=useState<string>("shhyam");
 
   const [products, setProducts] = useState<productInfoType[]>([
     {
@@ -142,10 +143,12 @@ export default function Home() {
         handleProductChange={handleProductChange}
         handleRemoveItem={handleRemoveItems}
         handleAddProduct={handleAddItem}
+        
       />
       <div
         style={{
           width: "100%",
+          height:"100vh",
           // backgroundColor: "red",
           display: "flex",
           flexDirection: "column",

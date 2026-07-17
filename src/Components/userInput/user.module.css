@@ -17,9 +17,20 @@
   font-size: 1.5em;
   font-weight: bold;
   border-radius: 0.25em;
-  
+  display: flex;
+  justify-content: space-between;  
 }
-
+.billtype{
+  border: 2px solid #b3b3b3;
+  border-radius: 0.25em;
+  padding: 0.25em 0.5em;
+  cursor: pointer;
+  font-size: 0.75em;
+}
+.billtype:focus{
+  border: 2px solid #b3b3b3;
+  outline: none;
+}
 .customer {
   display: flex;
   flex-direction: column;
@@ -76,6 +87,28 @@ color: #003178;
   font-size: 1.2em;
   font-weight: 700;
   color: #001945;
+}
+.customerInfoHeader{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.customerDatas{
+  
+}
+.customerselect{
+  border: 2px solid #b3b3b3;
+  border-radius: 0.25em;
+  padding: 0.25em 0.5em;
+  cursor: pointer;
+  font-size: 0.75em;
+  color: #003178;
+  font-weight: bold;
+}
+.customerselect:focus{
+  border: 2px solid #b3b3b3;
+  outline: none;
 }
 .products{
   background-color: #fff;

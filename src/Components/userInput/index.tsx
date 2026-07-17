@@ -6,7 +6,6 @@ import { FaUser } from "react-icons/fa6";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
-
 type UserInputProps = {
   customerInfo: customerInfoType;
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -31,11 +30,27 @@ const UserInput = (props: UserInputProps) => {
 
   return (
     <div className={styles.userInput}>
-      <div className={styles.invoiceDetails}>Billing Details</div>
+      <div className={styles.invoiceDetails}>
+        <span >Billing Details</span>
+        <select name="" id="" className={styles.billtype} >
+          <option value="invoice">Invoice</option>
+          <option value="voucher">Voucher</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
       <div className={styles.customer}>
-        <div className={styles.customerInfo}>
+        <div className={styles.customerInfoHeader}>
+          <div className={styles.customerInfo}>
           <FaUser />
           <span>Customer Information</span>
+        </div>
+        <div className={styles.customerDatas}>
+          <select className={styles.customerselect} name="" id="" >
+            <option value="SelectCustomer">Select Customer</option>
+          <option value="Ramesh">Ramesh</option>
+          <option value="Sohan">Sohan</option>
+          </select>
+        </div>
         </div>
         <div className={styles.one}>
           <span>Customer Name</span>
@@ -134,59 +149,58 @@ const OrderItem = (props: {
         <div className={styles.pdtittle}>
           <span>Product Name</span>
           <input
-          type="text"
-          placeholder="Enter product name"
-          className={styles.productName}
-          name="description"
-          value={product.description}
-          onChange={(e) => handleProductChange(e, product.id)}
-        />
+            type="text"
+            placeholder="Enter product name"
+            className={styles.productName}
+            name="description"
+            value={product.description}
+            onChange={(e) => handleProductChange(e, product.id)}
+          />
         </div>
         <button
           className={styles.removeButton}
           onClick={() => handleRemoveItem(product.id)}
         >
           <RiDeleteBin6Line />
-
         </button>
       </div>
 
       <div className={styles.bottomItem}>
         <div className={styles.price}>
-        <span>Price</span>
-        <input
-        type="text"
-        placeholder="Enter product price"
-        className={styles.productPrice}
-        name="price"
-        value={product.price}
-        onChange={(e) => handleProductChange(e, product.id)}
-      />
-      </div>
+          <span>Price</span>
+          <input
+            type="text"
+            placeholder="Enter product price"
+            className={styles.productPrice}
+            name="price"
+            value={product.price}
+            onChange={(e) => handleProductChange(e, product.id)}
+          />
+        </div>
 
-      <div className={styles.Discount}>
-        <span>Discount</span>
-        <input
-        type="text"
-        placeholder="Discount"
-        className={styles.productDiscount}
-        name="discount"
-        value={product.discount}
-        onChange={(e) => handleProductChange(e, product.id)}
-      />
-      </div>
+        <div className={styles.Discount}>
+          <span>Discount</span>
+          <input
+            type="text"
+            placeholder="Discount"
+            className={styles.productDiscount}
+            name="discount"
+            value={product.discount}
+            onChange={(e) => handleProductChange(e, product.id)}
+          />
+        </div>
 
-      <div className={styles.final}>
-        <span>Final Price</span>
-        <input
-        type="text"
-        placeholder="Final Price"
-        className={styles.finalPrice}
-        name="finalPrice"
-        value={finalPrice}
-        readOnly
-      />
-      </div>
+        <div className={styles.final}>
+          <span>Final Price</span>
+          <input
+            type="text"
+            placeholder="Final Price"
+            className={styles.finalPrice}
+            name="finalPrice"
+            value={finalPrice}
+            readOnly
+          />
+        </div>
       </div>
     </div>
   );
