@@ -1,5 +1,5 @@
 "use client";
-import { Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
+import { Document, Page, Text, View } from "@react-pdf/renderer";
 import { styles } from "./styles";
 import { customerInfoType } from "@/Apptypes/InputsType";
 import { productInfoType } from "@/Apptypes/productType";
@@ -7,14 +7,14 @@ import { productInfoType } from "@/Apptypes/productType";
 type payStatusType = "Paid" | "Unpaid" | "Pending";
 
 type BillProps = {
+  docType:string;
   customerInfo: customerInfoType;
   products: productInfoType[];
   status: payStatusType;
-  compRef: React.RefObject<HTMLDivElement | null>;
 };
 
 const Bill = (props: BillProps) => {
-  const { customerInfo, products, status, compRef } = props;
+  const { docType,customerInfo, products, status } = props;
 
   const totalPrice = products.reduce((acc, item) => {
     const discountedPrice = item.price - (item.price * item.discount) / 100;
@@ -22,7 +22,12 @@ const Bill = (props: BillProps) => {
   }, 0);
 
   return (
-    <Document title="Invoice" author="AlgoBright Tech Private Limited" subject="Invoice Document" keywords="Invoice, PDF, React-PDF">
+    <Document
+      title="Invoice"
+      author="AlgoBright Tech Private Limited"
+      subject="Invoice Document"
+      keywords="Invoice, PDF, React-PDF"
+    >
       <Page size="A4" style={styles.page} id="invoice">
         <View style={styles.bill}>
           <View style={styles.compInfo}>
@@ -61,7 +66,7 @@ const Bill = (props: BillProps) => {
             </View>
 
             <View style={styles.rightItems}>
-              <Text style={styles.invoice}>Invoice</Text>
+              <Text style={styles.invoice}>{docType}</Text>
 
               <View style={styles.invoiceDetails}>
                 <View style={styles.eachInfo}>

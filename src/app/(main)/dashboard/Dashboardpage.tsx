@@ -10,7 +10,7 @@ import { PDFViewer } from "@/lib/react-pdf";
 import dynamic from "next/dynamic";
 
 const PDFDownloadLink = dynamic(
-  () => import("@react-pdf/renderer").then((mod) => mod. PDFDownloadLink),
+  () => import("@react-pdf/renderer").then((mod) => mod.PDFDownloadLink),
   {
     ssr: false,
     loading: () => <p>Loading...</p>,
@@ -22,10 +22,39 @@ type orderItemType = {
   quantity: number;
   price: number;
 };
+// customer data
+type CustomerPreset = {
+  key: string;
+  label: string;
+  data: customerInfoType;
+};
 
+const customerPresets: CustomerPreset[] = [
+  {
+    key: "Ramesh",
+    label: "Ramesh",
+    data: {
+      name: "Ramesh Kumar",
+      address: "MG Road, Patna, Bihar",
+      phone: "9876543210",
+      email: "ramesh@example.com",
+    },
+  },
+  {
+    key: "Sohan",
+    label: "Sohan",
+    data: {
+      name: "Sohan Sharma",
+      address: "Boring Road, Patna, Bihar",
+      phone: "9123456780",
+      email: "sohan@example.com",
+    },
+  },
+];
 export default function Home() {
   const invoiceRef = useRef<HTMLDivElement>(null);
   const [isDownloading, setIsDownloading] = useState(false);
+  const [docType, setDocType] = useState<string>("Invoice");
 
   const [customerInfo, setCustomerInfo] = useState<customerInfoType>({
     name: "MediBridge",
@@ -33,7 +62,9 @@ export default function Home() {
     phone: "9090909090",
     email: "main@example.cm",
   });
-const [selectedValue, setSelectedValue]=useState<string>("shhyam");
+  // for customer select usestate
+  const [selectedCustomer, setSelectedCustomer] =
+    useState<string>("SelectCustomer");
 
   const [products, setProducts] = useState<productInfoType[]>([
     {
@@ -44,7 +75,18 @@ const [selectedValue, setSelectedValue]=useState<string>("shhyam");
       quantity: 1,
     },
   ]);
+  // customer change handler
+  const handleCustomerSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const key = e.target.value;
+    setSelectedCustomer(key);
 
+    if (key === "SelectCustomer") return; // placeholder option, do nothing
+
+    const preset = customerPresets.find((c) => c.key === key);
+    if (preset) {
+      setCustomerInfo(preset.data);
+    }
+  };
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
@@ -137,18 +179,22 @@ const [selectedValue, setSelectedValue]=useState<string>("shhyam");
   return (
     <div className={"mainOuter " + styles.page}>
       <UserInput
+        docType={docType}
+        setDocType={setDocType}
         customerInfo={customerInfo}
         handleInputChange={handleInputChange}
         products={products}
         handleProductChange={handleProductChange}
         handleRemoveItem={handleRemoveItems}
         handleAddProduct={handleAddItem}
-        
+        selectedCustomer={selectedCustomer}
+        handleCustomerSelect={handleCustomerSelect}
+        customerOptions={customerPresets}
       />
       <div
         style={{
           width: "100%",
-          height:"100vh",
+          height: "100vh",
           // backgroundColor: "red",
           display: "flex",
           flexDirection: "column",
@@ -160,10 +206,10 @@ const [selectedValue, setSelectedValue]=useState<string>("shhyam");
         {/* <div className={styles.invoicePreview}> */}
         <PDFViewer width="100%" height="100%">
           <Bill
+            docType={docType}
             customerInfo={customerInfo}
             products={products}
             status="Paid"
-            compRef={invoiceRef}
           />
         </PDFViewer>
         <PDFDownloadLink
@@ -172,7 +218,7 @@ const [selectedValue, setSelectedValue]=useState<string>("shhyam");
               customerInfo={customerInfo}
               products={products}
               status="Paid"
-              compRef={invoiceRef}
+              docType={docType}
             />
           }
           fileName="invoice.pdf"

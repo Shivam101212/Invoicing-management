@@ -7,6 +7,8 @@ import { MdOutlineShoppingCart } from "react-icons/md";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
 type UserInputProps = {
+  docType: string;
+  setDocType: Dispatch<SetStateAction<string>>;
   customerInfo: customerInfoType;
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   products: productInfoType[];
@@ -16,23 +18,41 @@ type UserInputProps = {
   ) => void;
   handleRemoveItem: (id: number) => void;
   handleAddProduct: () => void;
+  selectedCustomer: string;
+  handleCustomerSelect: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  customerOptions: { key: string; label: string; data: customerInfoType }[];
 };
 
 const UserInput = (props: UserInputProps) => {
   const {
+    docType,
+    setDocType,
     customerInfo,
     products,
     handleInputChange,
     handleProductChange,
     handleRemoveItem,
     handleAddProduct,
+    selectedCustomer,
+    handleCustomerSelect,
+    customerOptions,
   } = props;
+
+  const handleDocTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setDocType(e.target.value);
+  };
 
   return (
     <div className={styles.userInput}>
       <div className={styles.invoiceDetails}>
-        <span >Billing Details</span>
-        <select name="" id="" className={styles.billtype} >
+        <span>Billing Details</span>
+        <select
+          name=""
+          id=""
+          className={styles.billtype}
+          value={docType}
+          onChange={handleDocTypeChange}
+        >
           <option value="invoice">Invoice</option>
           <option value="voucher">Voucher</option>
           <option value="other">Other</option>
@@ -41,16 +61,25 @@ const UserInput = (props: UserInputProps) => {
       <div className={styles.customer}>
         <div className={styles.customerInfoHeader}>
           <div className={styles.customerInfo}>
-          <FaUser />
-          <span>Customer Information</span>
-        </div>
-        <div className={styles.customerDatas}>
-          <select className={styles.customerselect} name="" id="" >
-            <option value="SelectCustomer">Select Customer</option>
-          <option value="Ramesh">Ramesh</option>
-          <option value="Sohan">Sohan</option>
-          </select>
-        </div>
+            <FaUser />
+            <span>Customer Information</span>
+          </div>
+          <div className={styles.customerDatas}>
+            <select
+              className={styles.customerselect}
+              name="selectedCustomer"
+              id="selectedCustomer"
+              value={selectedCustomer}
+              onChange={handleCustomerSelect}
+            >
+              <option value="SelectCustomer">Select Customer</option>
+              {customerOptions.map((c) => (
+                <option key={c.key} value={c.key}>
+                  {c.label}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
         <div className={styles.one}>
           <span>Customer Name</span>
