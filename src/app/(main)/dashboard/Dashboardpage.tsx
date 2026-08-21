@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useRef, useState } from "react";
+import { useId, useRef, useState, useEffect } from "react";
 import styles from "./page.module.css";
 import UserInput from "@components/userInput";
 import { customerInfoType } from "@/Apptypes/InputsType";
@@ -8,7 +8,7 @@ import { productInfoType } from "@/Apptypes/productType";
 import Bill from "@components/MyDocument";
 import { PDFViewer } from "@/lib/react-pdf";
 import dynamic from "next/dynamic";
-
+import { supabase } from "@/lib/supabaseClient";
 const PDFDownloadLink = dynamic(
   () => import("@react-pdf/renderer").then((mod) => mod.PDFDownloadLink),
   {
@@ -29,32 +29,38 @@ type CustomerPreset = {
   data: customerInfoType;
 };
 
-const customerPresets: CustomerPreset[] = [
-  {
-    key: "Ramesh",
-    label: "Ramesh",
-    data: {
-      name: "Ramesh Kumar",
-      address: "MG Road, Patna, Bihar",
-      phone: "9876543210",
-      email: "ramesh@example.com",
-    },
-  },
-  {
-    key: "Sohan",
-    label: "Sohan",
-    data: {
-      name: "Sohan Sharma",
-      address: "Boring Road, Patna, Bihar",
-      phone: "9123456780",
-      email: "sohan@example.com",
-    },
-  },
-];
 export default function Home() {
   const invoiceRef = useRef<HTMLDivElement>(null);
   const [isDownloading, setIsDownloading] = useState(false);
   const [docType, setDocType] = useState<string>("Invoice");
+
+  const [customerPresets, setCustomerPresets] = useState<CustomerPreset[]>([]);
+
+  useEffect(() => {
+    const fetchCustomers = async () => {
+      const { data, error } = await supabase.from("customers").select("*");
+
+      if (error) {
+        console.error("Error fetching customers:", error);
+        return;
+      }
+
+      const formatted: CustomerPreset[] = data.map((c) => ({
+        key: c.name,
+        label: c.name,
+        data: {
+          name: c.name,
+          address: c.address,
+          phone: c.phone,
+          email: c.email,
+        },
+      }));
+
+      setCustomerPresets(formatted);
+    };
+
+    fetchCustomers();
+  }, []);
 
   const [customerInfo, setCustomerInfo] = useState<customerInfoType>({
     name: "MediBridge",
