@@ -31,11 +31,11 @@ export default function Features() {
 
               {/* Editor mockup — image placeholder */}
               <div className="mt-6 h-56 w-full overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm">
-                <img
+                {/* <img
                   src="/images/editor-preview.png"
                   alt="Real-time visual editor preview"
                   className="h-full w-full object-cover"
-                />
+                /> */}
               </div>
             </div>
 
@@ -90,11 +90,11 @@ export default function Features() {
 
               {/* World map — image placeholder */}
               <div className="h-40 w-full overflow-hidden rounded-lg border border-slate-200 bg-white sm:w-1/2">
-                <img
-                  src="/images/global-compliance-map.png"
+                {/* <img
+                  src="../../images/pv.webp"
                   alt="Global compliance map"
                   className="h-full w-full object-cover"
-                />
+                /> */}
               </div>
             </div>
           </div>

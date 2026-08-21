@@ -13,6 +13,7 @@ export default function Hero() {
 
           <h1 className="mt-6 text-5xl font-bold leading-tight tracking-tight text-slate-900">
             Precision Invoicing for Modern Teams
+            
           </h1>
 
           <p className="mt-5 max-w-md text-base leading-relaxed text-slate-500">

@@ -1,0 +1,40 @@
+.page {
+  padding: 5em 2em 1em 2em;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  gap: 2em;
+  background-color: #ede7e7;
+  color: #171717;
+}
+@media (max-width: 1600px) {
+  .page {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+}
+
+.page button:disabled {
+  cursor: not-allowed !important;
+  background-color: #999696 !important;
+}
+
+.invoicePreview {
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
+  gap: 1em;
+  height: 90vh;
+  overflow-y: scroll;
+  position: relative;
+  width: auto;
+}
+
+.btn {
+  position: -webkit-sticky;
+  bottom: 1em;
+  position: sticky;
+  width: fit-content;
+  margin: 0 auto 0 auto;
+}

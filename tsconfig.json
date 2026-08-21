@@ -19,8 +19,9 @@
       }
     ],
     "paths": {
-      "@/*": ["/*"],
-      "@context/*": ["src/app/context/"],
+      "@/*": ["./src/*"],
+      "@context/*": ["./src/context/*"],
+      "@components/*": ["./src/Components/*"],
     }
   },
   "include": [
