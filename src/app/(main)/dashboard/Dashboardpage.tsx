@@ -39,7 +39,7 @@ export default function Home() {
   useEffect(() => {
     const fetchCustomers = async () => {
       const { data, error } = await supabase.from("customers").select("*");
-
+      console.log(data);
       if (error) {
         console.error("Error fetching customers:", error);
         return;

@@ -1,0 +1,95 @@
+[33mcommit 41b00b65af01760bffdcfa4189abb9d1cb4827d4[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Merge: 796f6ed 657339d
+Author: Shivam kumar <s81952068@gmail.com>
+Date:   Fri Aug 21 21:25:38 2026 +0530
+
+    Merge pull request #2 from Shivam101212/with-canvas-pdf
+    
+    added api data to select of customers
+
+[33mcommit 657339dfbb0a0bb90501f7984e0caf9645670edf[m[33m ([m[1;31morigin/with-canvas-pdf[m[33m, [m[1;32mwith-canvas-pdf[m[33m)[m
+Author: Shivam kumar <s81952068@gmail.com>
+Date:   Fri Aug 21 21:22:20 2026 +0530
+
+    added api data to select of customers
+
+[33mcommit 796f6ed657f14c7e774efc5522d72241fb6fac77[m
+Merge: e2c7c73 d3b5e4d
+Author: Shivam kumar <s81952068@gmail.com>
+Date:   Fri Aug 21 15:23:22 2026 +0530
+
+    Merge pull request #1 from Shivam101212/with-canvas-pdf
+    
+    react pdf basic workings
+
+[33mcommit d3b5e4d657a72c8b4d052fc57d3d2e4ee9e150a0[m
+Author: Shivam Kumar <s81952068@gmail.com>
+Date:   Sat Jul 18 13:59:15 2026 +0530
+
+    working functionality of customer select
+
+[33mcommit 312a8d23e316856348788d9040611f9368b27178[m
+Author: Shivam Kumar <s81952068@gmail.com>
+Date:   Fri Jul 17 14:47:06 2026 +0530
+
+    adding selectt
+
+[33mcommit 16fc1205f0542425e381f4e1da4c5d7a5cca02fa[m
+Author: Shivam Kumar <s81952068@gmail.com>
+Date:   Thu Jul 16 13:05:09 2026 +0530
+
+    working fien till normal
+
+[33mcommit 16b44b5432f4dcafd014ec8fadd710df0027b90a[m
+Author: Shivam Kumar <s81952068@gmail.com>
+Date:   Sat Jul 11 15:32:38 2026 +0530
+
+    download btn
+
+[33mcommit d1872b9076a1edc2075d9ffefdec14c2b8d833cf[m
+Author: Shivam Kumar <s81952068@gmail.com>
+Date:   Mon Jul 6 15:30:30 2026 +0530
+
+    wotking with now pdf renderer , removed html2canvas
+
+[33mcommit 0664ee3a15fc0e6fb6d98ebba3ae3d97afce2afa[m
+Author: Shivam Kumar <s81952068@gmail.com>
+Date:   Sun Jul 5 14:41:56 2026 +0530
+
+    with canvas finalled
+
+[33mcommit fa910286f8d591c60398e142e8fc39e90ee0aead[m
+Author: Shivam Kumar <s81952068@gmail.com>
+Date:   Sun Jul 5 13:01:36 2026 +0530
+
+    with canvas pdf
+
+[33mcommit 58d41e7fef7416852dfee65e452244b9d386f18c[m
+Author: Shivam Kumar <s81952068@gmail.com>
+Date:   Sun Jul 5 12:59:42 2026 +0530
+
+    without canva
+
+[33mcommit e2c7c73f5d3c5d974cc42375b70946b3e399b39b[m
+Author: Shivam kumar <s81952068@gmail.com>
+Date:   Sun Jul 5 11:10:38 2026 +0530
+
+    updated
+
+[33mcommit 41889b0fd331f77261138d7a59a2c1b4b8368cfb[m
+Author: Shivam kumar <s81952068@gmail.com>
+Date:   Sun Jul 5 11:08:57 2026 +0530
+
+    ui
+
+[33mcommit eed247364d78ebaaa2d7eca59409666451fe70e6[m
+Author: Shivam kumar <s81952068@gmail.com>
+Date:   Fri Jul 3 11:29:48 2026 +0530
+
+    proj initiated
+
+[33mcommit 7b0af1ecbf61e0f825eb472d35fe774618899f9f[m
+Author: Shivam kumar <s81952068@gmail.com>
+Date:   Thu Jul 2 14:52:01 2026 +0530
+
+    Initial commit from Create Next App
