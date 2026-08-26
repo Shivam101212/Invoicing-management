@@ -5,6 +5,7 @@ import { productInfoType } from "@/Apptypes/productType";
 import { FaUser } from "react-icons/fa6";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { log } from "next/dist/server/typescript/utils";
 
 type UserInputProps = {
   docType: string;
@@ -21,6 +22,10 @@ type UserInputProps = {
   selectedCustomer: string;
   handleCustomerSelect: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   customerOptions: { key: string; label: string; data: customerInfoType }[];
+  onSaveCustomer: () => void;
+  isSaveDisabled: boolean;
+  saveError: string | null;
+  isSaving: boolean;
 };
 
 const UserInput = (props: UserInputProps) => {
@@ -36,6 +41,10 @@ const UserInput = (props: UserInputProps) => {
     selectedCustomer,
     handleCustomerSelect,
     customerOptions,
+    onSaveCustomer,
+    isSaveDisabled,
+    saveError,
+    isSaving,
   } = props;
 
   const handleDocTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -125,6 +134,13 @@ const UserInput = (props: UserInputProps) => {
             onChange={handleInputChange}
           />
         </div>
+        <button onClick={onSaveCustomer} disabled={isSaveDisabled}>
+          {isSaving ? "Saving..." : "Save Customer"}
+        </button>
+
+        {saveError && (
+          <p style={{ color: "red", fontSize: "0.85rem" }}>{saveError}</p>
+        )}
       </div>
       <div className={styles.products}>
         <div className={styles.producthead}>

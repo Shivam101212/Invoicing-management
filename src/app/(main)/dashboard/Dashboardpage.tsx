@@ -8,7 +8,7 @@ import { productInfoType } from "@/Apptypes/productType";
 import Bill from "@components/MyDocument";
 import { PDFViewer } from "@/lib/react-pdf";
 import dynamic from "next/dynamic";
-import { supabase } from "@/lib/supabaseClient";
+
 const PDFDownloadLink = dynamic(
   () => import("@react-pdf/renderer").then((mod) => mod.PDFDownloadLink),
   {
@@ -36,17 +36,21 @@ export default function Home() {
 
   const [customerPresets, setCustomerPresets] = useState<CustomerPreset[]>([]);
 
+  const [isSaving, setIsSaving] = useState(false);
+  const [saveError, setSaveError] = useState<string | null>(null);
   useEffect(() => {
     const fetchCustomers = async () => {
-      const { data, error } = await supabase.from("customers").select("*");
-      console.log(data);
-      if (error) {
-        console.error("Error fetching customers:", error);
+      const res = await fetch("/api/customers");
+
+      if (!res.ok) {
+        console.error("Error fetching customers:", await res.text());
         return;
       }
 
-      const formatted: CustomerPreset[] = data.map((c) => ({
-        key: c.name,
+      const data = await res.json();
+
+      const formatted: CustomerPreset[] = data.map((c: customerInfoType) => ({
+        key: c.key, // using your actual `key` column from the DB now
         label: c.name,
         data: {
           name: c.name,
@@ -61,8 +65,8 @@ export default function Home() {
 
     fetchCustomers();
   }, []);
-
   const [customerInfo, setCustomerInfo] = useState<customerInfoType>({
+    key: "ramu",
     name: "MediBridge",
     address: "Medi",
     phone: "9090909090",
@@ -112,6 +116,43 @@ export default function Home() {
     }
   };
 
+  const isFormFilled =
+    !!customerInfo.name?.toString().trim() &&
+    !!customerInfo.address?.toString().trim() &&
+    !!customerInfo.phone?.toString().trim() &&
+    !!customerInfo.email?.toString().trim();
+
+  const handleSaveCustomer = async () => {
+    setSaveError(null);
+    setIsSaving(true);
+
+    try {
+      const res = await fetch("/api/customers", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(customerInfo),
+      });
+
+      const result = await res.json();
+
+      if (!res.ok) {
+        setSaveError(result.error || "Something went wrong");
+        return;
+      }
+
+      // add the new customer to the dropdown list immediately, no page refresh needed
+      setCustomerPresets((prev) => [
+        ...prev,
+        { key: result.key, label: result.name, data: result },
+      ]);
+
+      setSelectedCustomer(result.key); // auto-select the newly added customer
+    } catch (err) {
+      setSaveError("Network error, please try again");
+    } finally {
+      setIsSaving(false);
+    }
+  };
   const handleProductChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     id: number,
@@ -196,6 +237,10 @@ export default function Home() {
         selectedCustomer={selectedCustomer}
         handleCustomerSelect={handleCustomerSelect}
         customerOptions={customerPresets}
+        onSaveCustomer={handleSaveCustomer}
+        isSaveDisabled={!isFormFilled || isSaving}
+        saveError={saveError}
+        isSaving={isSaving}
       />
       <div
         style={{
